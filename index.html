@@ -27,6 +27,7 @@
             box-shadow: 0 0 20px rgba(229, 9, 20, 0.8);
             z-index: 1000;
             text-align: center;
+            display: none; /* Ẩn popup khi chưa load */
         }
 
         .popup h2 {
@@ -201,9 +202,9 @@
 
         <!-- Hiển thị hình ảnh từ MLBB -->
         <div class="image-container">
-            <img src="https://imgur.com/vnxtk78"Theo dõi giải đấu">
-            <img src="https://imgur.com/vnxtk78"Chương trình mới">
-            <img src="https://imgur.com/vnxtk78"Liên hệ quản lý">
+            <img src="https://imgur.com/vnxtk78" alt="Theo dõi giải đấu">
+            <img src="https://imgur.com/vnxtk78" alt="Chương trình mới">
+            <img src="https://imgur.com/vnxtk78" alt="Liên hệ quản lý">
         </div>
     </div>
 
@@ -213,36 +214,84 @@
     </footer>
 
     <script>
-        // Hiển thị popup
-        window.onload = function() {
-            const popup = document.getElementById('popup');
-            popup.style.display = 'block';
+        // Dữ liệu người dùng với số điện thoại, tổng view, số video đã nộp và KPI
+        const data = {
+    '532032': { totalViews: 357988, videosSubmitted: 9, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '990625': { totalViews: 275563, videosSubmitted: 50, kpiView1: 15000, ratio1: '1837%', kpiView2: 50000, ratio2: '551%' },
+    '615403': { totalViews: 173986, videosSubmitted: 5, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '507176': { totalViews: 146054, videosSubmitted: 6, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '246732': { totalViews: 137312, videosSubmitted: 12, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '658955': { totalViews: 108800, videosSubmitted: 1, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '204307': { totalViews: 101308, videosSubmitted: 22, kpiView1: 15000, ratio1: '675%', kpiView2: 50000, ratio2: '203%' },
+    '431701': { totalViews: 70700, videosSubmitted: 1, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '109765': { totalViews: 64080, videosSubmitted: 4, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '184001': { totalViews: 50627, videosSubmitted: 9, kpiView1: 7500, ratio1: '675%', kpiView2: 25000, ratio2: '203%' },
+    '382274': { totalViews: 42922, videosSubmitted: 9, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '156930': { totalViews: 40598, videosSubmitted: 6, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '588351': { totalViews: 38382, videosSubmitted: 10, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '307335': { totalViews: 29049, videosSubmitted: 2, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '534394': { totalViews: 24618, videosSubmitted: 5, kpiView1: 15000, ratio1: '164%', kpiView2: 50000, ratio2: '49%' },
+    '754726': { totalViews: 17900, videosSubmitted: 1, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '216756': { totalViews: 15275, videosSubmitted: 3, kpiView1: 15000, ratio1: '102%', kpiView2: 50000, ratio2: '31%' },
+    '244206': { totalViews: 15009, videosSubmitted: 4, kpiView1: 15000, ratio1: '100%', kpiView2: 50000, ratio2: '30%' },
+    '317598': { totalViews: 13125, videosSubmitted: 23, kpiView1: 7500, ratio1: '175%', kpiView2: 25000, ratio2: '53%' },
+    '560012': { totalViews: 11075, videosSubmitted: 7, kpiView1: 15000, ratio1: '74%', kpiView2: 50000, ratio2: '22%' },
+    '699854': { totalViews: 9166, videosSubmitted: 3, kpiView1: 7500, ratio1: '122%', kpiView2: 25000, ratio2: '37%' },
+    '329319': { totalViews: 8089, videosSubmitted: 4, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '230542': { totalViews: 6770, videosSubmitted: 6, kpiView1: 15000, ratio1: '45%', kpiView2: 50000, ratio2: '14%' },
+    '550977': { totalViews: 6339, videosSubmitted: 9, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '764605': { totalViews: 6019, videosSubmitted: 4, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '830172': { totalViews: 5032, videosSubmitted: 4, kpiView1: 7500, ratio1: '67%', kpiView2: 25000, ratio2: '20%' },
+    '469493': { totalViews: 4815, videosSubmitted: 1, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '237373': { totalViews: 4426, videosSubmitted: 4, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '846002': { totalViews: 3903, videosSubmitted: 12, kpiView1: 15000, ratio1: '26%', kpiView2: 50000, ratio2: '8%' },
+    '680588': { totalViews: 3831, videosSubmitted: 6, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '343159': { totalViews: 3808, videosSubmitted: 12, kpiView1: 7500, ratio1: '51%', kpiView2: 25000, ratio2: '15%' },
+    '472295': { totalViews: 3554, videosSubmitted: 8, kpiView1: 7500, ratio1: '47%', kpiView2: 25000, ratio2: '14%' },
+    '734733': { totalViews: 3340, videosSubmitted: 1, kpiView1: 15000, ratio1: '22%', kpiView2: 50000, ratio2: '7%' },
+    '191547': { totalViews: 3027, videosSubmitted: 2, kpiView1: 7500, ratio1: '40%', kpiView2: 25000, ratio2: '12%' },
+    '944106': { totalViews: 2596, videosSubmitted: 1, kpiView1: 21500, ratio1: '12%', kpiView2: 75000, ratio2: '3%' },
+    '920584': { totalViews: 1814, videosSubmitted: 8, kpiView1: 7500, ratio1: '24%', kpiView2: 25000, ratio2: '7%' },
+    '376121': { totalViews: 1775, videosSubmitted: 1, kpiView1: 15000, ratio1: '12%', kpiView2: 50000, ratio2: '4%' },
+    '417058': { totalViews: 1139, videosSubmitted: 8, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '444803': { totalViews: 980, videosSubmitted: 1, kpiView1: 7500, ratio1: '13%', kpiView2: 25000, ratio2: '4%' },
+    '515032': { totalViews: 954, videosSubmitted: 6, kpiView1: 15000, ratio1: '6%', kpiView2: 50000, ratio2: '2%' },
+    '978003': { totalViews: 879, videosSubmitted: 2, kpiView1: 7500, ratio1: '12%', kpiView2: 25000, ratio2: '4%' },
+    '722716': { totalViews: 674, videosSubmitted: 2, kpiView1: 7500, ratio1: '9%', kpiView2: 25000, ratio2: '3%' },
+    '685601': { totalViews: 528, videosSubmitted: 3, kpiView1: 7500, ratio1: '7%', kpiView2: 25000, ratio2: '2%' },
+    '730491': { totalViews: 465, videosSubmitted: 3, kpiView1: 15000, ratio1: '3%', kpiView2: 50000, ratio2: '1%' },
+    '890018': { totalViews: 447, videosSubmitted: 2, kpiView1: 7500, ratio1: '6%', kpiView2: 25000, ratio2: '2%' },
+    '384332': { totalViews: 356, videosSubmitted: 1, kpiView1: 15000, ratio1: '2%', kpiView2: 50000, ratio2: '1%' },
+    '525509': { totalViews: 216, videosSubmitted: 1, kpiView1: '-', ratio1: '-', kpiView2: '-', ratio2: '-' },
+    '316799': { totalViews: 170, videosSubmitted: 1, kpiView1: 7500, ratio1: '2%', kpiView2: 25000, ratio2: '1%' },
+    '488917': { totalViews: 147, videosSubmitted: 1, kpiView1: 15000, ratio1: '1%', kpiView2: 50000, ratio2: '0%' },
+    '186905': { totalViews: 0, videosSubmitted: 0, kpiView1: 7500, ratio1: '0%', kpiView2: 25000, ratio2: '0%' },
         };
+
+        // Kiểm tra số điện thoại và hiển thị kết quả
+        function checkViewCount() {
+            const phoneNumber = document.getElementById('phoneNumber').value.trim();
+            const userData = data[phoneNumber];
+            if (userData) {
+                document.getElementById('statsResult').innerHTML = `
+                    <p><strong>Tổng số view:</strong> ${userData.totalViews}</p>
+                    <p><strong>Số video đã nộp:</strong> ${userData.videosSubmitted}</p>
+                    <p><strong>KPI view mức 1:</strong> ${userData.kpiView1} (${userData.ratio1})</p>
+                    <p><strong>KPI view mức 2:</strong> ${userData.kpiView2} (${userData.ratio2})</p>
+                `;
+            } else {
+                document.getElementById('statsResult').innerHTML = '<p>Không tìm thấy dữ liệu cho số điện thoại này.</p>';
+            }
+        }
+
+        // Mở popup
+        function openPopup() {
+            document.getElementById('popup').style.display = 'block';
+        }
 
         // Đóng popup
         function closePopup() {
-            const popup = document.getElementById('popup');
-            popup.style.display = 'none';
-        }
-
-        // Gửi link video
-        function submitVideoLink() {
-            const videoLink = document.getElementById('videoLink').value;
-            if (videoLink) {
-                alert('Video link đã được gửi!');
-            } else {
-                alert('Vui lòng nhập link video!');
-            }
-        }
-
-        // Kiểm tra số view
-        function checkViewCount() {
-            const phoneNumber = document.getElementById('phoneNumber').value;
-            if (phoneNumber) {
-                document.getElementById('statsResult').innerHTML = `Số view cho video của bạn là: <strong>1234 views</strong>`;
-            } else {
-                alert('Vui lòng nhập số điện thoại!');
-            }
+            document.getElementById('popup').style.display = 'none';
         }
     </script>
 </body>
