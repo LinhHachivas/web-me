@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MLBB Creator TikTok ( Ocean Blue )</title>
+    <title>Trang hỗ trợ nộp bài và kiểm tra tiến độ của Creator Mobile Legends: Bang Bang</title>
     <style>
         /* Tổng quát */
         body {
@@ -14,7 +14,6 @@
             overflow-x: hidden;
             position: relative;
         }
-
         /* Popup */
         .popup {
             position: fixed;
@@ -27,7 +26,7 @@
             box-shadow: 0 0 20px rgba(229, 9, 20, 0.8);
             z-index: 1000;
             text-align: center;
-            display: none; /* Ẩn popup khi chưa load */
+            display: none;
         }
 
         .popup h2 {
@@ -59,10 +58,10 @@
 
         /* Header */
         header {
-            background-color: #222;
-            padding: 20px;
-            text-align: center;
-            font-size: 1.5rem;
+    background-color: #141414;  /* Màu nền tối cho header */
+    padding: 30px 20px; /* Tăng khoảng cách trong header */
+    text-align: center; /* Căn giữa nội dung */
+    color: #fff; /* Màu chữ trắng */
         }
 
         /* Phần nhập video và thống kê */
@@ -170,36 +169,39 @@
 <body>
     <!-- Popup -->
     <div class="popup" id="popup">
-        <h2>Hãy ủng hộ tôi!</h2>
-        <p>Follow kênh TikTok: <strong>Linh Hachivas</strong></p>
-        <p>Donate để duy trì server:<br>
-           Số tài khoản: <strong>567891234</strong><br>
-           Ngân hàng: <strong>Lio Bank</strong></p>
-        <p>Đây là dự án làm cho vui, hãy góp ý qua email:<br>
+        <h2>THÔNG BÁO QUAN TRỌNG</h2>
+        <p> Dữ liệu chỉ được tổng hợp đến ngày: <strong>13/01/2025</strong></p>
+        <p>Danh sách các Admin:<br>
+           Trần Đoài: <strong>+8617848000110</strong><br>
+           Linh: <strong>Không biết số zalo nhưng thêm vào cho vui :D</strong></p>
+        <p>Đây là dự án làm khi rảnh, hãy góp ý qua email:<br>
            <strong>hotrovande.linhhachivas@gmail.com</strong></p>
-        <button onclick="closePopup()">Đóng</button>
+        <button onclick="closePopup()">TÔI ĐÃ HIỂU</button>
     </div>
 
-    <!-- Header -->
-    <header>
-        <h1>MLBB Creator TikTok ( Ocean Blue )</h1>
-    </header>
+  <!-- Header -->
+<header>
+    <h1 class="main-title">Trang hỗ trợ nộp bài và kiểm tra tiến độ</h1>
+    <h2 class="sub-title">Creator Mobile Legends: Bang Bang</h2>
+</header>
 
-    <!-- Nội dung chính -->
-    <div class="content">
-        <div class="input-group">
-            <input type="text" id="videoLink" placeholder="Nhập link video của Creator MLBB">
-            <button onclick="submitVideoLink()">Gửi Video</button>
-        </div>
+<!-- Nội dung chính -->
+<div class="content">
+    <!-- Nhập link video và nộp bài -->
+    <div class="input-group">
+        <a href="https://forms.gle/2YiTpdPZ5cavb3hdA" target="_blank">
+            <button>NỘP BÀI ĐỢT 4</button>
+        </a>
+    </div>
 
-        <div class="stats-result" id="statsResult"></div>
+    <div class="stats-result" id="statsResult"></div>
 
-        <!-- Nhập số điện thoại zalo đăng ký chương trình để xem số view -->
-        <div class="phone-number">
-            <input type="text" id="phoneNumber" placeholder="Nhập số điện thoại của bạn">
-            <button onclick="checkViewCount()">Kiểm tra Số View</button>
-        </div>
-
+    <!-- Nhập 6 số cuối số điện thoại đã đăng ký chương trình để xem số view -->
+    <div class="phone-number">
+        <input type="text" id="phoneNumber" placeholder="Nhập 6 số cuối số điện thoại">
+        <button onclick="checkViewCount()">KIỂM TRA TIẾN ĐỘ</button>
+    </div>
+</div>
         <!-- Hiển thị hình ảnh từ MLBB -->
         <div class="image-container">
            <img src="https://cdn.pixabay.com/photo/2021/06/15/12/28/tiktok-6338429_1280.png" alt="Theo dõi giải đấu">
@@ -210,7 +212,8 @@
 
     <!-- Footer -->
     <footer>
-        &copy; 2025 MLBB Creator TikTok ( Ocean Blue ) - Được tạo bởi <a href="#">Linh Hachivas</a>. Mọi quyền được bảo lưu.
+        &copy; Trang web đang trong quá trình thử nghiệm - Được tạo bởi <a href="#">Linh Hachivas</a>. Mọi quyền được bảo lưu
+				Hotline : 0777 077 964
     </footer>
 
     <script>
@@ -285,9 +288,9 @@
         }
 
         // Mở popup
-        function openPopup() {
-            document.getElementById('popup').style.display = 'block';
-        }
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('popup').style.display = 'block'; // Đảm bảo popup hiện lên
+        });
 
         // Đóng popup
         function closePopup() {
